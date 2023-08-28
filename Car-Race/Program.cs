@@ -27,7 +27,7 @@ class Car
         while (Distance < 10000)
         {
             Thread.Sleep(1000);
-            Distance += speed / 3600.0; // Convert speed to km/s
+            Distance += speed / 3600.0; 
             if (RandomEvent())
             {
                 HandleEvent();
@@ -71,23 +71,38 @@ class Program
         List<Car> cars = new List<Car>
         {
             new Car("Bil1"),
-            new Car("Bil2") // Add more cars if needed
+            new Car("Bil2") 
         };
 
         foreach (var car in cars)
         {
             car.Start();
         }
+        bool raceInProgress = true;
 
-        while (cars.Exists(car => car.Distance < 10000))
+        while (raceInProgress)
         {
+            if (Console.KeyAvailable)
+            {
+                var key = Console.ReadKey(intercept: true).Key;
+                if (key == ConsoleKey.S)
+                {
+                    Console.Clear();
+                    foreach (var car in cars)
+                    {
+                        Console.WriteLine($"{car.Name}: {car.Distance:F2} km");
+                    }
+                }
+            }
+
+            raceInProgress = cars.Exists(car => car.Distance < 10000);
             Thread.Sleep(1000);
         }
 
         foreach (var car in cars)
         {
             car.Drive();
-            if (car.Distance >= 10000)
+            if (car.Distance >= 10)
             {
                 Console.WriteLine($"{car.Name} kom i mål!");
                 if (car.Distance == cars.Max(c => c.Distance))
