@@ -8,6 +8,11 @@ class Car
     public double Distance { get; private set; }
     private int speed = 120;
     private Thread thread;
+    private Random random = new Random();
+    public void WaitForFinish()
+    {
+        thread.Join();
+    }
 
     public Car(string name)
     {
@@ -24,20 +29,33 @@ class Car
 
     public void Drive()
     {
+        Timer timer = new Timer(TimerCallback, null, TimeSpan.Zero, TimeSpan.FromSeconds(30));
+
         while (Distance < 10)
         {
             Thread.Sleep(1000);
-            Distance += speed / 3600.0; 
-            if (RandomEvent())
-            {
-                HandleEvent();
-            }
+            Distance += speed / 3600.0;
+        }
+
+        timer.Dispose();
+    }
+
+    private void TimerCallback(object state)
+    {
+        TriggerEvent();
+    }
+
+    public void TriggerEvent()
+    {
+        if (RandomEvent())
+        {
+            HandleEvent();
         }
     }
 
     private bool RandomEvent()
     {
-        return new Random().Next(1, 31) == 1;
+        return random.Next(1, 31) == 1;
     }
 
     private void HandleEvent()
@@ -49,10 +67,10 @@ class Car
             Tuple.Create("Fågel på vindrutan", 5.0 / 50, 10),
             Tuple.Create("Motorfel", 10.0 / 50, 1)
         };
-        var eventIndex = new Random().Next(events.Count);
+        var eventIndex = random.Next(events.Count);
         var chosenEvent = events[eventIndex];
 
-        if (new Random().NextDouble() <= chosenEvent.Item2)
+        if (random.NextDouble() <= chosenEvent.Item2)
         {
             Console.WriteLine($"{Name} drabbades av {chosenEvent.Item1} och stannar i {chosenEvent.Item3} sekunder.");
             Thread.Sleep(chosenEvent.Item3 * 1000);
@@ -71,45 +89,51 @@ class Program
         List<Car> cars = new List<Car>
         {
             new Car("Bil1"),
-            new Car("Bil2") 
+            new Car("Bil2")
         };
 
         foreach (var car in cars)
         {
             car.Start();
         }
-        bool raceInProgress = true;
 
-        while (raceInProgress)
+        //timer for every 30s to trigger an event
+        Timer eventTimer = null;
+        int currentCarIndex = 0;
+
+        eventTimer = new Timer((state) =>
+        {
+            cars[currentCarIndex].TriggerEvent();
+            currentCarIndex = (currentCarIndex + 1) % cars.Count;
+        }, null, TimeSpan.Zero, TimeSpan.FromSeconds(30));
+        //User input key S
+        bool racing = true;
+        while (racing)
         {
             if (Console.KeyAvailable)
             {
-                var key = Console.ReadKey(intercept: true).Key;
+                var key = Console.ReadKey(true).Key;
                 if (key == ConsoleKey.S)
                 {
-                    Console.Clear();
+                    Console.WriteLine("Car distances:");
                     foreach (var car in cars)
                     {
                         Console.WriteLine($"{car.Name}: {car.Distance:F2} km");
                     }
                 }
+                else if (key == ConsoleKey.Escape)
+                {
+                    racing = false;
+                }
             }
-
-            raceInProgress = cars.Exists(car => car.Distance < 10000);
-            Thread.Sleep(1000);
         }
 
         foreach (var car in cars)
         {
-            car.Drive();
-            if (car.Distance >= 10)
-            {
-                Console.WriteLine($"{car.Name} kom i mål!");
-                if (car.Distance == cars.Max(c => c.Distance))
-                {
-                    Console.WriteLine($"{car.Name} vann!");
-                }
-            }
+            car.WaitForFinish();
         }
+
+        eventTimer.Dispose();
+        Console.WriteLine("All cars finished the race!");
     }
 }
