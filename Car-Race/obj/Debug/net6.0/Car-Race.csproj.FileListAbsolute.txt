@@ -1,0 +1,15 @@
+C:\Users\morga\OneDrive\Skrivbord\Car-Race\Car-Race\bin\Debug\net6.0\Car-Race.exe
+C:\Users\morga\OneDrive\Skrivbord\Car-Race\Car-Race\bin\Debug\net6.0\Car-Race.deps.json
+C:\Users\morga\OneDrive\Skrivbord\Car-Race\Car-Race\bin\Debug\net6.0\Car-Race.runtimeconfig.json
+C:\Users\morga\OneDrive\Skrivbord\Car-Race\Car-Race\bin\Debug\net6.0\Car-Race.dll
+C:\Users\morga\OneDrive\Skrivbord\Car-Race\Car-Race\bin\Debug\net6.0\Car-Race.pdb
+C:\Users\morga\OneDrive\Skrivbord\Car-Race\Car-Race\obj\Debug\net6.0\Car-Race.csproj.AssemblyReference.cache
+C:\Users\morga\OneDrive\Skrivbord\Car-Race\Car-Race\obj\Debug\net6.0\Car-Race.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\morga\OneDrive\Skrivbord\Car-Race\Car-Race\obj\Debug\net6.0\Car-Race.AssemblyInfoInputs.cache
+C:\Users\morga\OneDrive\Skrivbord\Car-Race\Car-Race\obj\Debug\net6.0\Car-Race.AssemblyInfo.cs
+C:\Users\morga\OneDrive\Skrivbord\Car-Race\Car-Race\obj\Debug\net6.0\Car-Race.csproj.CoreCompileInputs.cache
+C:\Users\morga\OneDrive\Skrivbord\Car-Race\Car-Race\obj\Debug\net6.0\Car-Race.dll
+C:\Users\morga\OneDrive\Skrivbord\Car-Race\Car-Race\obj\Debug\net6.0\refint\Car-Race.dll
+C:\Users\morga\OneDrive\Skrivbord\Car-Race\Car-Race\obj\Debug\net6.0\Car-Race.pdb
+C:\Users\morga\OneDrive\Skrivbord\Car-Race\Car-Race\obj\Debug\net6.0\Car-Race.genruntimeconfig.cache
+C:\Users\morga\OneDrive\Skrivbord\Car-Race\Car-Race\obj\Debug\net6.0\ref\Car-Race.dll
