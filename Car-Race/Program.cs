@@ -24,7 +24,7 @@ class Car
 
     public void Drive()
     {
-        while (Distance < 10000)
+        while (Distance < 10)
         {
             Thread.Sleep(1000);
             Distance += speed / 3600.0; 
